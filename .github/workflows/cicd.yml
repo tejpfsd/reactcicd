@@ -1,0 +1,35 @@
+name: CI/CD React APP
+
+
+
+on:
+  push: 
+    branches: [main]
+  pull_request:
+    branches: [main]  
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: Checkout Code 
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/Setup-node@v4
+        with:
+          node-version: 23
+
+      - name: Install CI
+        run: npm ci  
+
+      - name: Build the Project
+        run: npm run build
+
+      #Configure Git Identity
+      - name: Configure Git
+        run: |
+          git config --global user.name
+
